@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # 질문 모델(테이블)
 class Question(models.Model):   # 질문 게시판
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     subject = models.CharField(max_length=200)
     content = models.TextField()
     create_date = models.DateTimeField()
@@ -11,6 +13,7 @@ class Question(models.Model):   # 질문 게시판
 
 # 답변 모델(테이블)
 class Answer(models.Model):
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)  # 질문 삭제 시 답변도 삭제
     content = models.TextField()
     create_date = models.DateTimeField()

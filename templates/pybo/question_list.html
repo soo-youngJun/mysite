@@ -3,18 +3,20 @@
 <div class="container my-3">
     <table class="table">
         <thead>
-            <tr class="thead-dark">
+            <tr class="thead-dark text-center">
                 <th>번호</th>
-                <th>제목</th>
+                <th style="width:50%">제목</th>
+                <th>글쓴이</th>
                 <th>작성일자</th>
             </tr>
         </thead>
         <tbody>
         {% if question_list %}
             {% for question in question_list %}
-            <tr>
+            <tr class="text-center">
                 <td>{{ forloop.counter }}</td>   <!-- 번호-->
-                <td><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></td>
+                <td class="text-left"><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></td>
+                <td>{{ question.author.username }}</td>
                 <td>{{ question.create_date }}</td>
             </tr>
             {% endfor %}

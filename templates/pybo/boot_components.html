@@ -1,0 +1,31 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'pybo/bootstrap.css' %}">
+    <title>부트스트랩 예제</title>
+</head>
+<body>
+  <div class="container my-3">
+    <div class="card">
+      <div class="card-body">
+        카드 본문 내의 텍스트 입니다.
+      </div>
+    </div>
+    <div class="card my-3" style="width: 20rem">
+      <div class="card-body">
+          <h5 class="card-title">Card Title</h5>
+          <p class="card-text">카드 본문 내의 텍스트 입니다.</p>
+          <a href="#" class="btn btn-primary">Go</a>
+      </div>
+    </div>
+
+  <!-- Badge 스타일 -->
+      <h1>Example heading <span class="badge bg-secondary">new</span></h1>
+      <h2>Example heading <span class="badge bg-primary">new</span></h2>
+      <h3>Example heading <span class="badge bg-danger">new</span></h3>
+  </div>
+</body>
+</html>

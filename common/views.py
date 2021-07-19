@@ -4,9 +4,6 @@ from .form import UserForm
 
 
 def signup(request):
-    """
-    회원가입
-    """
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
@@ -14,8 +11,9 @@ def signup(request):
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
-            login(request, user)
+            login(request, user)  # 바로 로그인되어 세션 권한 획득(인증)
             return redirect('index')
     else:
         form = UserForm()
-    return render(request, 'common/signup.html', {'form': form})
+    context = {'form': form}
+    return render(request, 'common/signup.html', context)
