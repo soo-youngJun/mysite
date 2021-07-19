@@ -17,7 +17,7 @@ def detail(request, question_id):
     return render(request, 'pybo/question_detail.html', context)
 
 
-@login_required(login_url='common:login')  # '@' 데코레이터
+@login_required(login_url='common:login')
 def answer_create(request, question_id):
     question = get_object_or_404(Question, pk=question_id)
     if request.method == 'POST':
