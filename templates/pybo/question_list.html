@@ -1,4 +1,4 @@
-{% extends 'base.html' %}  <!-- 템플릿 상속-->
+{% extends 'base.html' %}  <!--템플릿 상속-->
 {% block content %}
 <div class="container my-3">
     <table class="table">
@@ -15,7 +15,9 @@
             {% for question in question_list %}
             <tr class="text-center">
                 <td>{{ forloop.counter }}</td>   <!-- 번호-->
-                <td class="text-left"><a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a></td>
+                <td class="text-left">
+                    <a href="{% url 'pybo:detail' question.id %}">{{ question.subject }}</a>
+                </td>
                 <td>{{ question.author.username }}</td>
                 <td>{{ question.create_date }}</td>
             </tr>
