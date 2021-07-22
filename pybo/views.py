@@ -4,17 +4,28 @@ from django.utils import timezone
 from .forms import QuestionForm, AnswerForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
+from django.core.paginator import Paginator
 
 def index(request):
     return render(request, 'pybo/index.html')
 
+def profile(request):
+    return render(request, 'pybo/profile.html')
+
 def board(request):
+    # 질문 목록
+    # 127.0.0.1:8000/pybo/board/?page=1
+    page = request.GET.get('page', '1')
+
+    # 조회
     question_list = Question.objects.order_by('-create_date')
-    context = {'question_list' : question_list}
-    return render(request, 'pybo/question_list.html', context)
-    #return HttpResponse("Welcome!! pybo에 오신 것을 환영합니다.")
-    #'-'기호는 내림차순 정렬
+
+    # 페이징 처리 -페이지당 10개씩 보여줌
+    paginator = Paginator(question_list, 10)
+    page_obj = paginator.get_page(page)
+
+    context = {'question_list' : page_obj}
+    return render(request, 'pybo/question_list.html' ,context)
 
 def detail(request, question_id):
     #question = Question.objects.get(id=question_id)
@@ -49,7 +60,7 @@ def question_create(request):
             question.author = request.user  #인증된 사용자(글쓴이)
             question.create_date = timezone.now()
             question.save()
-            return redirect('pybo:index')
+            return redirect('pybo:board')
     else:    # request.method == 'GET'
         form = QuestionForm()
 
@@ -84,8 +95,42 @@ def question_delete(request, question_id):
     if request.user != question.author:
         messages.error(request, "삭제 권한이 없습니다.")
         return redirect('pybo:detail', question_id=question.id)
-    question.delete()
-    return redirect('pybo:index')
+    else:
+        question.delete()
+    return redirect('pybo:board')
+
+@login_required(login_url='common:login')
+def answer_modify(request, answer_id):
+    #답변 수정
+    answer = get_object_or_404(Answer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, "수정 권한이 없습니다.")
+        return redirect('pybo:detail', question_id=answer.question.id)
+
+    if request.method == "POST":
+        form = AnswerForm(request.POST, instance=answer)
+        if form.is_valid():
+            answer = form.save(commit=False)
+            answer.author = request.user
+            answer.modify_date = timezone.now()
+            answer.save()
+            return redirect('pybo:detail', question_id=answer.question.id)
+    else:
+        form = AnswerForm(instance=answer)
+    context = {'form': form}
+    return render(request, 'pybo/answer_form.html', context)
+
+@login_required(login_url='common:login')
+def answer_delete(request, answer_id):
+    # 답변 삭제
+    answer = get_object_or_404(Answer, pk=answer_id)
+    if request.user != answer.author:
+        messages.error(request, '삭제 권한이 없습니다.')
+        return redirect('pybo:detail', question_id=answer.id)
+    else:
+        answer.delete()
+    return redirect('pybo:detail', question_id=answer.question.id)
+
 
 def jqtest(request):
     return render(request, 'pybo/jqtest.html')

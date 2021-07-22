@@ -41,6 +41,12 @@
         {{ answer.content }}
       </div>
       <div class="d-flex justify-content-end">
+        {% if answer.modify_date %}
+        <div class="badge badge-light p-2 text-left mx-3">
+          <div class="mb-2">modified at</div>
+          <div>{{ answer.modify_date }}</div>
+        </div>
+        {% endif %}
         <div class="badge badge-light p-2 text-left">
           <div class="mb-2">{{ answer.author.username }}</div>
           <div>{{ answer.create_date }}</div>
@@ -48,7 +54,10 @@
       </div>
       {% if request.user == answer.author %}
       <div class="my-3">
-        <a href="#" class="btn btn-sm btn-outline-secondary">수정</a>
+        <a href="{% url 'pybo:answer_modify' answer.id %}"
+           class="btn btn-sm btn-outline-secondary">수정</a>
+        <a href="#" data-uri="{% url 'pybo:answer_delete' answer.id %}"
+           class="delete btn btn-sm btn-outline-secondary">삭제</a>
       </div>
       {% endif %}
     </div>
