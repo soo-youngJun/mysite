@@ -6,7 +6,10 @@ header{width: 100%; height: 250px;
        background: url("bg0.jpg") no-repeat;
        background-size: cover;}
 nav{height: 60px; background: #0388f5; line-height: 60px;} /*line-height ul 위아래 가운데 정렬*/
-#main-nav{list-style: none; text-align: center;}
+#logo{float: left; padding-left: 20px;}
+#logo a{text-decoration: none}
+#logo a:hover{color: yellow;}
+#main-nav{list-style: none; text-align: center; float: right; padding-right: 10%;}
 #main-nav li{display: inline; margin: 0 15px;}
 #main-nav a:link, a:visited{text-decoration: none; color: greenyellow;}
 #main-nav li a:hover{color: yellow;} /*hover 커서 반응*/
