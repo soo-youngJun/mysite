@@ -1,0 +1,48 @@
+/* 모바일 기준 */
+*{margin: 0;padding: 0;}
+#container{width: 100%; margin: 0 auto;}
+/* header 스타일 */
+header{width: 100%; height: 250px;
+       background: url("sky02.jpg") no-repeat;
+       background-size: cover;}
+nav{height: 60px; background: #0388f5; line-height: 60px;} /*line-height ul 위아래 가운데 정렬*/
+#logo{float: left; padding-left: 20px;}
+#logo a{text-decoration: none}
+#logo a:hover{color: white;}
+#main-nav{list-style: none; text-align: center; float: right; padding-right: 10%;}
+#main-nav li{display: inline; margin: 0 15px;}
+#main-nav a:link, a:visited{text-decoration: none; color: #ccc;}
+#main-nav li a:hover{color: white;} /*hover 커서 반응*/
+/* 본문 스타일 */
+section{width: 100%; padding: 10px 5%;} /*padding 좌우 가변크기%로! 중요!!*/
+section:nth-child(2n+1){background: rgb(197, 234, 245);}
+section .page-title{padding: 15px;} /*container 내 padding, margin 아님*/
+section .content .photo{display: none;} /*모바일 기준 사진 없음*/
+section .content .text h3{padding-left:30px; padding-bottom: 10px;}
+section .content .text p{line-height: 2em; padding-left: 30px;}
+section .content .text span{color: blue; font-weight: bold;}
+section .content #career li{margin-left: 50px; line-height: 2em;}
+section .content #link{padding-left: 30px;}
+section .content #link li{margin: 15px;}
+section .content #link li a{text-decoration: none; color: black;}
+/* footer 스타일 */
+footer{height: 60px; border-top: 2px solid #aaa;}
+footer #bottomMenu{margin-top: 20px; margin-left: 60px;}
+footer #bottomMenu ul{list-style: none;}
+footer #bottomMenu ul li{display: inline; padding: 0 10px; border-right: 1px solid #ccc ;}
+footer #bottomMenu ul li:last-child{border: none;}
+footer #bottomMenu ul li a{text-decoration: none; color: #222;}
+/* 태블릿 기준 */
+@media screen and (min-width: 768px) {
+    header{height: 300px;}
+    #who, #job{float: left; width: 50%; height: 350px; box-sizing: border-box;}
+    #skill{clear: both;}
+}
+/* PC 기준 */
+@media screen and (min-width: 996px) {
+    #container{width: 996px; margin: 0 auto; border: 1px solid rgb(209, 233, 243);}
+    header{height: 320px;}
+    #who, #job, #skill{width: 100%; height: 300px;}
+    #who .photo{float: left; display: block; margin: 10px 20px;}
+    #skill .photo{float: right; display: block; margin-right: 10%;}
+}
